@@ -23,7 +23,7 @@ const (
 	PingSize    = 32
 	pingTimeout = time.Second * 60
 
-	ID = "/ipfs/ping/1.0.0"
+	ID = "/ipfs/pang/1.0.0"
 
 	ServiceName = "libp2p.ping"
 )

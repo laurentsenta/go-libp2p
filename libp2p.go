@@ -1,6 +1,8 @@
 package libp2p
 
 import (
+	"fmt"
+
 	"github.com/libp2p/go-libp2p/config"
 	"github.com/libp2p/go-libp2p/core/host"
 )
@@ -51,6 +53,7 @@ func ChainOptions(opts ...Option) Option {
 //
 // To stop/shutdown the returned libp2p node, the user needs to cancel the passed context and call `Close` on the returned Host.
 func New(opts ...Option) (host.Host, error) {
+	fmt.Printf("Helloworld I am a broken branch")
 	return NewWithoutDefaults(append(opts, FallbackDefaults)...)
 }
 
