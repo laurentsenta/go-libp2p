@@ -36,6 +36,9 @@ jobs:
         # If we prepend its location to the PATH
         #   subsequent 'shell: bash' steps will use msys2 instead of gitbash
         run: echo "C:/msys64/usr/bin" >> $GITHUB_PATH
+      - name: Set up gotestfmt
+        # https://github.com/GoTestTools/gotestfmt#github-actions
+        run: go install github.com/gotesttools/gotestfmt/v2/cmd/gotestfmt@latest
       - name: Run repo-specific setup
         uses: ./.github/actions/go-test-setup
         if: hashFiles('./.github/actions/go-test-setup') != ''
@@ -46,7 +49,9 @@ jobs:
           # Use -coverpkg=./..., so that we include cross-package coverage.
           # If package ./A imports ./B, and ./A's tests also cover ./B,
           # this means ./B's coverage will be significantly higher than 0%.
-          run: go test -v -shuffle=on -coverprofile=module-coverage.txt -coverpkg=./... ./...
+          run: |
+            set -euo pipefail
+            go test -v -json -shuffle=on -coverprofile=module-coverage.txt -coverpkg=./... ./... 2>&1 | tee /tmp/gotest.log | gotestfmt
       - name: Run tests (32 bit)
         # can't run 32 bit tests on OSX.
         if: matrix.os != 'macos' &&

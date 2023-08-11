@@ -8,4 +8,4 @@ runs:
     - name: Run nocover tests. These are tests that require the coverage analysis to be off # See https://github.com/protocol/.github/issues/460
       shell: bash
       # This matches only tests with "NoCover" in their test name to avoid running all tests again.
-      run: go test -tags nocover -run NoCover -v ./...
+      run: go test -json -tags nocover -run NoCover -v ./... 2>&1 | tee /tmp/gotest.log | gotestfmt
