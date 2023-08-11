@@ -38,7 +38,7 @@ jobs:
         run: echo "C:/msys64/usr/bin" >> $GITHUB_PATH
       - name: Set up gotestfmt
         # https://github.com/GoTestTools/gotestfmt#github-actions
-        run: go install github.com/gotesttools/gotestfmt/v2/cmd/gotestfmt@latest
+        run: go install github.com/laurentsenta/gotestfmt/v2/cmd/gotestfmt@fix-coverage2
       - name: Run repo-specific setup
         uses: ./.github/actions/go-test-setup
         if: hashFiles('./.github/actions/go-test-setup') != ''
